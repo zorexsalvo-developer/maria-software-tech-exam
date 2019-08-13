@@ -1,4 +1,4 @@
-import { decorate, observable, action } from 'mobx';
+import { decorate, observable, action, computed } from 'mobx';
 import { notification, message } from 'antd';
 import ContentUiStore from './ContentUiStore';
 import ContentWebservice from './../webservice/ContentWebservice';
@@ -10,7 +10,10 @@ class ContentStore {
     this.search = new SearchStore();
     this.results = [];
     this.meta = {};
+
     this.limit = 10;
+    this.skip = 0;
+    this.total = 0;
   }
 
   setResults(value) {
@@ -19,6 +22,10 @@ class ContentStore {
 
   setMeta(value) {
     this.meta = value;
+  }
+
+  setTotal(value) {
+    this.total = value;
   }
 
   showDisclaimer() {
@@ -30,35 +37,96 @@ class ContentStore {
     });
   }
 
+  resetDataTable() {
+    this.setTotal(-1);
+    this.setSkip(0);
+    this.setResults([]);
+  }
+
   async getData() {
+    this.resetDataTable();
     this.ui.setLoading(true);
     try {
       const params = {
-        limit: this.limit
+        limit: this.limit,
+        skip: this.skip
       };
 
       if (this.search.query) {
-        params['search'] = `opendfda.brand_name:${
+        params['search'] = `(opendfda.brand_name:${
           this.search.query
-        } openfda.generic_name:${this.search.query}`;
+        }) (openfda.generic_name:${this.search.query})`;
       }
       const webservice = new ContentWebservice();
       const response = await webservice.getData(params);
+
+      this.setTotal(response.data.meta.results.total);
       this.setMeta(response.data.meta);
       this.setResults(response.data.results);
     } catch (e) {
-      if (e.response.data) {
+      if (e.response) {
         message.error(e.response.data.error.message);
+      } else {
+        message.error(e);
       }
     }
     this.ui.setLoading(false);
+  }
+
+  pushDataToResults(value) {
+    value.map(result => this.results.push(result));
+  }
+
+  async loadMore() {
+    this.ui.setLoading(true);
+    try {
+      const params = {
+        limit: this.limit,
+        skip: this.skip
+      };
+
+      if (this.search.query) {
+        params['search'] = `(opendfda.brand_name:${
+          this.search.query
+        }) (openfda.generic_name:${this.search.query})`;
+      }
+      const webservice = new ContentWebservice();
+      const response = await webservice.getData(params);
+      this.pushDataToResults(response.data.results);
+      this.setSkip(this.skip + this.limit);
+    } catch (e) {
+      if (e.response) {
+        message.error(e.response.data.error.message);
+      } else {
+        message.error(e);
+      }
+    }
+    this.ui.setLoading(false);
+  }
+
+  setSkip(value) {
+    this.skip = value;
+  }
+
+  get hasMore() {
+    return this.skip + this.limit <= this.total;
   }
 }
 
 export default decorate(ContentStore, {
   results: observable,
   meta: observable,
+  total: observable,
+  limit: observable,
+  skip: observable,
 
   setMeta: action,
-  setResults: action
+  setResults: action,
+  setTotal: action,
+  setLimit: action,
+  setSkip: action,
+  pushDataToResults: action,
+  resetDataTable: action,
+
+  hasMore: computed
 });

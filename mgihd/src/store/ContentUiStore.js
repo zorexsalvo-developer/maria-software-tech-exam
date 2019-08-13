@@ -1,6 +1,6 @@
 import React from 'react';
 import { observable, decorate, action } from 'mobx';
-import { Tag, Typography, List } from 'antd';
+import { Tag, Typography } from 'antd';
 
 class ContentUiStore {
   constructor() {
@@ -53,20 +53,6 @@ class ContentUiStore {
               }
               return tag;
             });
-          }
-        }
-      },
-      {
-        title: 'Purpose',
-        dataIndex: 'purpose',
-        render: uses => {
-          if (uses) {
-            return (
-              <List
-                dataSource={uses}
-                renderItem={use => <List.Item>{use}</List.Item>}
-              />
-            );
           }
         }
       }
