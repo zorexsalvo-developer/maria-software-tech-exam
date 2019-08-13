@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, List, Typography } from 'antd';
+import { Table, List, Typography, Descriptions } from 'antd';
 import axios from 'axios';
 import './ContentListingComponent.scss';
 
@@ -36,40 +36,6 @@ const columns = [
         );
       }
     }
-  },
-  {
-    title: 'Indications and Usage',
-    dataIndex: 'indications_and_usage'
-  },
-  {
-    title: 'Warnings',
-    dataIndex: 'warnings',
-    render: warnings => {
-      if (warnings) {
-        return (
-          <List
-            dataSource={warnings}
-            renderItem={warning => (
-              <List.Item>
-                <Text type="danger">{warning}</Text>
-              </List.Item>
-            )}
-          />
-        );
-      }
-    }
-  },
-  {
-    title: 'Active Ingredients',
-    dataIndex: 'active_ingredient'
-  },
-  {
-    title: 'Inactive Ingredients',
-    dataIndex: 'inactive_ingredient'
-  },
-  {
-    title: 'Storage and Handling',
-    dataIndex: 'storage_and_handling'
   }
 ];
 
@@ -132,6 +98,25 @@ class ContenListingComponent extends Component {
           pagination={this.state.pagination}
           loading={this.state.loading}
           onChange={this.handleTableChange}
+          expandedRowRender={record => (
+            <Descriptions bordered layout="vertical">
+              <Descriptions.Item label="Indications And Usage">
+                {record.indications_and_usage}
+              </Descriptions.Item>
+              <Descriptions.Item label="Warnings">
+                {record.warnings}
+              </Descriptions.Item>
+              <Descriptions.Item label="Active Ingredients">
+                {record.active_ingredient}
+              </Descriptions.Item>
+              <Descriptions.Item label="Inactive Ingredients">
+                {record.inactive_ingredient}
+              </Descriptions.Item>
+              <Descriptions.Item label="Storage and Handling">
+                {record.storage_and_handling}
+              </Descriptions.Item>
+            </Descriptions>
+          )}
         />
       </div>
     );
