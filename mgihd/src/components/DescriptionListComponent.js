@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Descriptions } from 'antd';
+import { Descriptions, Typography } from 'antd';
+
+const { Text } = Typography;
 
 export default class DescriptionListComponent extends Component {
   render() {
@@ -13,7 +15,7 @@ export default class DescriptionListComponent extends Component {
         ) : null}
         {record.warnings ? (
           <Descriptions.Item label="Warnings">
-            {record.warnings}
+            <Text type="danger">{record.warnings}</Text>
           </Descriptions.Item>
         ) : null}
         {record.purpose ? (
