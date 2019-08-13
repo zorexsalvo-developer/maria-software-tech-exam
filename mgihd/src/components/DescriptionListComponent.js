@@ -16,6 +16,11 @@ export default class DescriptionListComponent extends Component {
             {record.warnings}
           </Descriptions.Item>
         ) : null}
+        {record.purpose ? (
+          <Descriptions.Item label="Purpose">
+            {record.purpose}
+          </Descriptions.Item>
+        ) : null}
         {record.active_ingredient ? (
           <Descriptions.Item label="Active Ingredients">
             {record.active_ingredient}
