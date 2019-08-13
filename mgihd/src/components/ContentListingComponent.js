@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, List, Typography, Descriptions } from 'antd';
+import { Table, List, Typography, Descriptions, Tag } from 'antd';
 import axios from 'axios';
 import './ContentListingComponent.scss';
 
@@ -21,7 +21,38 @@ const columns = [
   },
   {
     title: 'Route of Administration',
-    dataIndex: 'openfda.route'
+    dataIndex: 'openfda.route',
+    render: routes => {
+      if (routes) {
+        return routes.map(route => {
+          let tag;
+          if (route === 'ORAL') {
+            tag = <Tag color="magenta">{route}</Tag>;
+          } else if (route === 'TOPICAL') {
+            tag = <Tag color="red">{route}</Tag>;
+          } else if (route === 'INTRAVENOUS') {
+            tag = <Tag color="volcano">{route}</Tag>;
+          } else if (route === 'DENTAL') {
+            tag = <Tag color="orange">{route}</Tag>;
+          } else if (route === 'RESPIRATORY') {
+            tag = <Tag color="gold">{route}</Tag>;
+          } else if (route === 'OPTHALMIC') {
+            tag = <Tag color="lime">{route}</Tag>;
+          } else if (route === 'INTRAMUSCULAR') {
+            tag = <Tag color="green">{route}</Tag>;
+          } else if (route === 'SUBCUTANEOUS') {
+            tag = <Tag color="cyan">{route}</Tag>;
+          } else if (route === 'NASAL') {
+            tag = <Tag color="blue">{route}</Tag>;
+          } else if (route === 'RECTAL') {
+            tag = <Tag color="purple">{route}</Tag>;
+          } else {
+            tag = <Tag color="geekblue">{route}</Tag>;
+          }
+          return tag;
+        });
+      }
+    }
   },
   {
     title: 'Purpose',
