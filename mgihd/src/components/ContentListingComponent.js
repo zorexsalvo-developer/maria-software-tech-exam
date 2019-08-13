@@ -101,6 +101,7 @@ class ContenListingComponent extends Component {
     return (
       <div className="ContentListingComponent">
         <Table
+          bordered
           locale={{ emptyText: 'No more products to display.' }}
           columns={columns}
           rowKey={record => record.login.uuid}
