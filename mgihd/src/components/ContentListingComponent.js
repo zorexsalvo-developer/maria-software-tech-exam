@@ -20,6 +20,7 @@ class ContenListingComponent extends Component {
           rowKey={record => record.id}
           dataSource={this.props.store.results}
           loading={this.props.store.ui.loading}
+          pagination={false}
           expandedRowRender={record => (
             <DescriptionListComponent record={record} />
           )}
