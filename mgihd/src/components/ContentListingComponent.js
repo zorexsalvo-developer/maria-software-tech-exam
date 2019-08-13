@@ -94,27 +94,38 @@ class ContenListingComponent extends Component {
           bordered
           locale={{ emptyText: 'No more products to display.' }}
           columns={columns}
+          rowKey={record => record.id}
           dataSource={this.state.data}
           pagination={this.state.pagination}
           loading={this.state.loading}
           onChange={this.handleTableChange}
           expandedRowRender={record => (
             <Descriptions bordered layout="vertical">
-              <Descriptions.Item label="Indications And Usage">
-                {record.indications_and_usage}
-              </Descriptions.Item>
-              <Descriptions.Item label="Warnings">
-                {record.warnings}
-              </Descriptions.Item>
-              <Descriptions.Item label="Active Ingredients">
-                {record.active_ingredient}
-              </Descriptions.Item>
-              <Descriptions.Item label="Inactive Ingredients">
-                {record.inactive_ingredient}
-              </Descriptions.Item>
-              <Descriptions.Item label="Storage and Handling">
-                {record.storage_and_handling}
-              </Descriptions.Item>
+              {record.indications_and_usage ? (
+                <Descriptions.Item label="Indications And Usage">
+                  {record.indications_and_usage}
+                </Descriptions.Item>
+              ) : null}
+              {record.warnings ? (
+                <Descriptions.Item label="Warnings">
+                  {record.warnings}
+                </Descriptions.Item>
+              ) : null}
+              {record.active_ingredient ? (
+                <Descriptions.Item label="Active Ingredients">
+                  {record.active_ingredient}
+                </Descriptions.Item>
+              ) : null}
+              {record.inactive_ingredient ? (
+                <Descriptions.Item label="Inactive Ingredients">
+                  {record.inactive_ingredient}
+                </Descriptions.Item>
+              ) : null}
+              {record.storage_and_handling ? (
+                <Descriptions.Item label="Storage and Handling">
+                  {record.storage_and_handling}
+                </Descriptions.Item>
+              ) : null}
             </Descriptions>
           )}
         />
