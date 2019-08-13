@@ -5,12 +5,6 @@ import DescriptionListComponent from './DescriptionListComponent';
 import './ContentListingComponent.scss';
 
 class ContenListingComponent extends Component {
-  state = {
-    data: [],
-    pagination: {},
-    loading: false
-  };
-
   componentDidMount() {
     this.props.store.getData();
   }
