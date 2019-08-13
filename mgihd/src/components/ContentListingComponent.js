@@ -7,6 +7,7 @@ import './ContentListingComponent.scss';
 class ContenListingComponent extends Component {
   componentDidMount() {
     this.props.store.getData();
+    this.props.store.showDisclaimer();
   }
 
   render() {
