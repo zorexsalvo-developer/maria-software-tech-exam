@@ -24,7 +24,7 @@ class ContenListingComponent extends Component {
           loadMore={this.loadMore}
           hasMore={this.props.store.hasMore}
           useWindow={true}
-          threshold={10}
+          threshold={0}
         >
           <Table
             bordered

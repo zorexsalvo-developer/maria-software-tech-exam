@@ -79,6 +79,8 @@ class ContentStore {
 
   async loadMore() {
     this.ui.setLoading(true);
+    this.setSkip(this.skip + this.limit);
+
     try {
       const params = {
         limit: this.limit,
@@ -93,7 +95,6 @@ class ContentStore {
       const webservice = new ContentWebservice();
       const response = await webservice.getData(params);
       this.pushDataToResults(response.data.results);
-      this.setSkip(this.skip + this.limit);
     } catch (e) {
       if (e.response) {
         message.error(e.response.data.error.message);
