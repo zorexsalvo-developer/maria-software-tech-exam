@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
+import { observer } from 'mobx-react';
 import { Table, List, Typography, Descriptions, Tag } from 'antd';
-import axios from 'axios';
 import './ContentListingComponent.scss';
 
 const { Text } = Typography;
@@ -69,7 +69,6 @@ const columns = [
     }
   }
 ];
-
 class ContenListingComponent extends Component {
   state = {
     data: [],
@@ -78,45 +77,8 @@ class ContenListingComponent extends Component {
   };
 
   componentDidMount() {
-    this.fetch();
+    this.props.store.getData();
   }
-
-  handleTableChange = (pagination, filters, sorter) => {
-    const pager = { ...this.state.pagination };
-    pager.current = pagination.current;
-    this.setState({
-      pagination: pager
-    });
-    this.fetch({
-      results: pagination.pageSize,
-      page: pagination.current,
-      sortField: sorter.field,
-      sortOrder: sorter.order,
-      ...filters
-    });
-  };
-
-  fetch = (params = {}) => {
-    console.log('params:', params);
-    this.setState({ loading: true });
-    axios
-      .get('https://api.fda.gov/drug/label.json', {
-        params: {
-          limit: 100
-        }
-      })
-      .then(data => {
-        const pagination = { ...this.state.pagination };
-        // Read total count from server
-        // pagination.total = data.totalCount;
-        data = data.data;
-        this.setState({
-          loading: false,
-          data: data.results,
-          pagination
-        });
-      });
-  };
 
   render() {
     return (
@@ -126,9 +88,8 @@ class ContenListingComponent extends Component {
           locale={{ emptyText: 'No more products to display.' }}
           columns={columns}
           rowKey={record => record.id}
-          dataSource={this.state.data}
-          loading={this.state.loading}
-          onChange={this.handleTableChange}
+          dataSource={this.props.store.results}
+          loading={this.props.store.ui.loading}
           expandedRowRender={record => (
             <Descriptions title="Drugs Information" layout="vertical" bordered>
               {record.indications_and_usage ? (
@@ -164,4 +125,4 @@ class ContenListingComponent extends Component {
   }
 }
 
-export default ContenListingComponent;
+export default observer(ContenListingComponent);
