@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { observer } from 'mobx-react';
 import { Input } from 'antd';
 import './SearchComponent.scss';
 const { Search } = Input;
@@ -9,11 +10,13 @@ class SearchComponent extends Component {
       <div className="SearchComponent">
         <Search
           placeholder="Search by generic name or brand name"
-          onSearch={value => console.log(value)}
+          value={this.props.store.search.query}
+          onChange={e => this.props.store.search.setQuery(e.target.value)}
+          onSearch={value => this.props.store.getData()}
         />
       </div>
     );
   }
 }
 
-export default SearchComponent;
+export default observer(SearchComponent);

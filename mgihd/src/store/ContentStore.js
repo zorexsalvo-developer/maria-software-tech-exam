@@ -1,11 +1,13 @@
 import { decorate, observable, action } from 'mobx';
-import { notification } from 'antd';
+import { notification, message } from 'antd';
 import ContentUiStore from './ContentUiStore';
 import ContentWebservice from './../webservice/ContentWebservice';
+import SearchStore from './SearchStore';
 
 class ContentStore {
   constructor() {
     this.ui = new ContentUiStore();
+    this.search = new SearchStore();
     this.results = [];
     this.meta = {};
     this.limit = 10;
@@ -34,12 +36,19 @@ class ContentStore {
       const params = {
         limit: this.limit
       };
+
+      if (this.search.query) {
+        params['search'] = `opendfda.brand_name:${this.search.query}`;
+        params['limit'] = null;
+      }
       const webservice = new ContentWebservice();
       const response = await webservice.getData(params);
       this.setMeta(response.data.meta);
       this.setResults(response.data.results);
     } catch (e) {
-      console.log(e);
+      if (e.response.data) {
+        message.error(e.response.data.error.message);
+      }
     }
     this.ui.setLoading(false);
   }

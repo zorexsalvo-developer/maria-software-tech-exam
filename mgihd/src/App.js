@@ -13,7 +13,7 @@ class App extends Component {
         <PageHeaderComponent />
         <Row>
           <Col span={16} offset={4}>
-            <SearchComponent />
+            <SearchComponent store={this.props.store.content} />
           </Col>
         </Row>
         <Row>
