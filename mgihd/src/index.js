@@ -7,6 +7,7 @@ import { Provider } from 'mobx-react';
 import RootStore from './store/RootStore';
 import 'antd/dist/antd.css';
 
+require('dotenv').config();
 const rootStore = new RootStore();
 
 ReactDOM.render(
