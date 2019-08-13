@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PageHeaderComponent from './components/PageHeaderComponent';
 import SearchComponent from './components/SearchComponent';
+import FilterComponent from './components/FilterComponent';
 import ContentListingComponent from './components/ContentListingComponent';
 import { inject, observer } from 'mobx-react';
 import { Row, Col } from 'antd';
@@ -13,7 +14,14 @@ class App extends Component {
         <PageHeaderComponent />
         <Row>
           <Col md={{ span: 16, offset: 4 }}>
-            <SearchComponent store={this.props.store.content} />
+            <Row gutter={16}>
+              <Col md={{ span: 12 }}>
+                <FilterComponent />
+              </Col>
+              <Col md={{ span: 12 }}>
+                <SearchComponent store={this.props.store.content} />
+              </Col>
+            </Row>
           </Col>
         </Row>
         <Row>
