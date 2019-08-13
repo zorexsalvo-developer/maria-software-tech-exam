@@ -12,12 +12,12 @@ class App extends Component {
       <div className="App">
         <PageHeaderComponent />
         <Row>
-          <Col span={16} offset={4}>
+          <Col md={{ span: 16, offset: 4 }}>
             <SearchComponent store={this.props.store.content} />
           </Col>
         </Row>
         <Row>
-          <Col span={18} offset={3}>
+          <Col md={{ span: 18, offset: 3 }}>
             <ContentListingComponent store={this.props.store.content} />
           </Col>
         </Row>
