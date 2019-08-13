@@ -127,11 +127,10 @@ class ContenListingComponent extends Component {
           columns={columns}
           rowKey={record => record.id}
           dataSource={this.state.data}
-          pagination={this.state.pagination}
           loading={this.state.loading}
           onChange={this.handleTableChange}
           expandedRowRender={record => (
-            <Descriptions bordered layout="vertical">
+            <Descriptions title="Drugs Information" layout="vertical" bordered>
               {record.indications_and_usage ? (
                 <Descriptions.Item label="Indications And Usage">
                   {record.indications_and_usage}
