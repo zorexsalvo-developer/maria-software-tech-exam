@@ -1,0 +1,4 @@
+[build]
+    base = "mgihd/"
+    publish = "mgihd/build/"
+    
