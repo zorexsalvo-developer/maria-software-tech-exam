@@ -1,48 +1,75 @@
 import React, { Component } from 'react';
-import { Table } from 'antd';
-import reqwest from 'reqwest';
+import { Table, List, Typography } from 'antd';
+import axios from 'axios';
 import './ContentListingComponent.scss';
 
+const { Text } = Typography;
 const columns = [
   {
     title: 'Generic Name',
-    dataIndex: 'genericName'
+    dataIndex: 'openfda.generic_name',
+    render: name => <Text strong>{name}</Text>
   },
   {
     title: 'Brand Name',
-    dataIndex: 'brandName'
+    dataIndex: 'openfda.brand_name',
+    render: name => <Text strong>{name}</Text>
   },
   {
     title: 'Product Type',
-    dataIndex: 'productType'
+    dataIndex: 'openfda.product_type'
   },
   {
     title: 'Route of Administration',
-    dataIndex: 'routeOfAdministration'
+    dataIndex: 'openfda.route'
   },
   {
     title: 'Purpose',
-    dataIndex: 'purpose'
+    dataIndex: 'purpose',
+    render: uses => {
+      if (uses) {
+        return (
+          <List
+            dataSource={uses}
+            renderItem={use => <List.Item>{use}</List.Item>}
+          />
+        );
+      }
+    }
   },
   {
-    title: 'Indication and Usage',
-    dataIndex: 'indicationAndUsage'
+    title: 'Indications and Usage',
+    dataIndex: 'indications_and_usage'
   },
   {
     title: 'Warnings',
-    dataIndex: 'warnings'
+    dataIndex: 'warnings',
+    render: warnings => {
+      if (warnings) {
+        return (
+          <List
+            dataSource={warnings}
+            renderItem={warning => (
+              <List.Item>
+                <Text type="danger">{warning}</Text>
+              </List.Item>
+            )}
+          />
+        );
+      }
+    }
   },
   {
     title: 'Active Ingredients',
-    dataIndex: 'activeIngredients'
+    dataIndex: 'active_ingredient'
   },
   {
     title: 'Inactive Ingredients',
-    dataIndex: 'inactiveIngredients'
+    dataIndex: 'inactive_ingredient'
   },
   {
     title: 'Storage and Handling',
-    dataIndex: 'storageAndHandling'
+    dataIndex: 'storage_and_handling'
   }
 ];
 
@@ -75,26 +102,23 @@ class ContenListingComponent extends Component {
   fetch = (params = {}) => {
     console.log('params:', params);
     this.setState({ loading: true });
-    reqwest({
-      url:
-        'https://api.fda.gov/drug/label.json?search=effective_time:[20110601+TO+20121231]&limit=1',
-      method: 'get',
-      data: {
-        results: 10,
-        ...params
-      },
-      type: 'json'
-    }).then(data => {
-      const pagination = { ...this.state.pagination };
-      // Read total count from server
-      // pagination.total = data.totalCount;
-      pagination.total = 200;
-      this.setState({
-        loading: false,
-        data: data.results,
-        pagination
+    axios
+      .get('https://api.fda.gov/drug/label.json', {
+        params: {
+          limit: 100
+        }
+      })
+      .then(data => {
+        const pagination = { ...this.state.pagination };
+        // Read total count from server
+        // pagination.total = data.totalCount;
+        data = data.data;
+        this.setState({
+          loading: false,
+          data: data.results,
+          pagination
+        });
       });
-    });
   };
 
   render() {
@@ -104,7 +128,6 @@ class ContenListingComponent extends Component {
           bordered
           locale={{ emptyText: 'No more products to display.' }}
           columns={columns}
-          rowKey={record => record.login.uuid}
           dataSource={this.state.data}
           pagination={this.state.pagination}
           loading={this.state.loading}
