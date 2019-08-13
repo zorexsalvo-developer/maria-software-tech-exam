@@ -8,6 +8,7 @@ class ContentStore {
     this.ui = new ContentUiStore();
     this.results = [];
     this.meta = {};
+    this.limit = 10;
   }
 
   setResults(value) {
@@ -26,8 +27,11 @@ class ContentStore {
   async getData() {
     this.ui.setLoading(true);
     try {
+      const params = {
+        limit: this.limit
+      };
       const webservice = new ContentWebservice();
-      const response = await webservice.getData();
+      const response = await webservice.getData(params);
       this.setMeta(response.data.meta);
       this.setResults(response.data.results);
     } catch (e) {
