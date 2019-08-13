@@ -38,8 +38,9 @@ class ContentStore {
       };
 
       if (this.search.query) {
-        params['search'] = `opendfda.brand_name:${this.search.query}`;
-        params['limit'] = null;
+        params['search'] = `opendfda.brand_name:${
+          this.search.query
+        } openfda.generic_name:${this.search.query}`;
       }
       const webservice = new ContentWebservice();
       const response = await webservice.getData(params);
