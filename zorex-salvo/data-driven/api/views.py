@@ -59,3 +59,25 @@ class AddToCartAPIView(APIView):
                     'Cart not found. Invalid cart identifier or cart is already paid. '
                 },
                 status=status.HTTP_404_NOT_FOUND)
+
+
+class RemoveItemFromCartAPIView(APIView):
+    def delete(self, request, cart_identifier, item_identifier):
+        try:
+            cart = Cart.objects.get(identifier=cart_identifier)
+        except Cart.DoesNotExist:
+            return Response({'message': 'Cart not found'},
+                            status=status.HTTP_404_NOT_FOUND)
+
+        try:
+            item = Item.objects.get(cart=cart, identifier=item_identifier)
+            terms = Term.objects.filter(plan=item.plan, term=item.payment_term)
+            cart.total_amount = cart.total_amount - (terms.first().amount *
+                                                     item.quantity)
+            cart.save()
+            item.delete()
+
+            return Response(CreateCartSerializer(cart).data)
+        except Item.DoesNotExist:
+            return Response({'message': 'Item not found'},
+                            status=status.HTTP_404_NOT_FOUND)
