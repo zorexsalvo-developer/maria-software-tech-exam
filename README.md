@@ -5,8 +5,12 @@
 ---
 ## Test #2 Data Driven
 
-|baseUrl|https://ptpuimvszi.execute-api.ap-southeast-1.amazonaws.com/dev|
+|**baseUrl:**|https://ptpuimvszi.execute-api.ap-southeast-1.amazonaws.com/dev|
 |-------|---------------------------------------------------------------|
+|**Directory:**|`zorex-salvo/data-driven` |
+|**Tech:**|`Python`, `Django Rest`, `AWS Lambda`, `Zappa`, `Postgresql`, `Pipenv` |
+|**Answers:**|`data-driven/ANSWER.txt`|
+|**How-to:**|`$pipenv --python 3.6; $pipenv shell; $pipenv install; $export DATABASE_URL=psql://postgres:postgres@host/healthshop; $python manage.py migrate; $python manage.py runserver`
 
 |Admin|https://ptpuimvszi.execute-api.ap-southeast-1.amazonaws.com/dev/admin/|
 |-----|----------------------------------------------------------------------|
@@ -196,3 +200,4 @@
  | **CI/CD:** | [Netlify](https://www.netlify.com/)|
  | **Directory:**| `zorex-salvo/my-god-i-hate-drags/`|
  |**How-To:**| Build instruction on `PROJECT_DIRECTORY/README.md`|
+|**Answers:**| `my-god-i-hate-drags/ANSWER.TXT`|
