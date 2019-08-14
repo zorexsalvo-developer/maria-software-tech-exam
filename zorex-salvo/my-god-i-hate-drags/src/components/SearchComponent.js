@@ -15,6 +15,7 @@ class SearchComponent extends Component {
           value={this.props.store.search.query}
           onChange={e => this.props.store.search.setQuery(e.target.value)}
           onSearch={this.onSearch}
+          allowClear={true}
         />
       </div>
     );
