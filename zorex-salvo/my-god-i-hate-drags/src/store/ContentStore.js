@@ -47,18 +47,18 @@ class ContentStore {
     };
 
     if (this.search.query) {
-      params['search'] += `(opendfda.brand_name:${
+      params['search'] += ` AND (opendfda.brand_name:${
         this.search.query
       }) (openfda.generic_name:${this.search.query})`;
     }
 
     if (this.filter.route) {
       if (this.search.query) {
-        params['search'] += `${params.search} AND (openfda.route:${
+        params['search'] += ` AND ${params.search} AND (openfda.route:${
           this.filter.route
         })`;
       } else {
-        params['search'] += `(openfda.route:${this.filter.route})`;
+        params['search'] += ` AND (openfda.route:${this.filter.route})`;
       }
     }
     return params;
@@ -82,7 +82,11 @@ class ContentStore {
       this.setResults(response.data.results);
     } catch (e) {
       if (e.response) {
-        message.error(e.response.data.error.message);
+        if (e.response.data.error.message.startsWith('Search not supported:')) {
+          message.error('Invalid search term!');
+        } else {
+          message.error(e.response.data.error.message);
+        }
       } else {
         message.error(e);
       }
