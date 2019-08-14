@@ -46,7 +46,7 @@ class ItemSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Item
-        fields = ('cart', 'identifier', 'plan', 'payment_term', 'quantity')
+        fields = ('identifier', 'plan', 'payment_term', 'quantity')
         read_only_fields = ('cart', )
 
     def to_representation(self, obj):
