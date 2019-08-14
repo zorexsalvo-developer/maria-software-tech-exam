@@ -34,6 +34,12 @@ class ListPlanSerializer(serializers.ModelSerializer):
                   'modified')
 
 
+class PlanSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Plan
+        fields = ('identifier', 'name')
+
+
 class ItemSerializer(serializers.ModelSerializer):
     plan = serializers.SlugRelatedField(queryset=Plan.objects.all(),
                                         slug_field='identifier')
@@ -42,6 +48,13 @@ class ItemSerializer(serializers.ModelSerializer):
         model = Item
         fields = ('cart', 'identifier', 'plan', 'payment_term', 'quantity')
         read_only_fields = ('cart', )
+
+    def to_representation(self, obj):
+        data = super(ItemSerializer, self).to_representation(obj)
+        plan_serializer = PlanSerializer(
+            Plan.objects.get(identifier=data['plan']))
+        data['plan'] = plan_serializer.data
+        return data
 
 
 class CreateCartSerializer(serializers.ModelSerializer):
