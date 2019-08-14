@@ -205,3 +205,4 @@
  | **Directory:**| `zorex-salvo/my-god-i-hate-drags/`|
  |**How-To:**| Build instruction on `PROJECT_DIRECTORY/README.md`|
 |**Answers:**| `my-god-i-hate-drags/ANSWER.TXT`|
+|**Setup/Test Project**| https://github.com/zorexsalvo-developer/react-netlify-setup|
