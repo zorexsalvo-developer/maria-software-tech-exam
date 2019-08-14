@@ -1,0 +1,12 @@
+I started developing the API by designing the schema. I used an sqldesigner (https://github.com/Lt-Mayonesa/wwwsqldesigner)
+for a more interactive schema designing then generated a .sql & .xml version of it.
+
+After the schema design, I mapped my schema to Django models. Create separate apps: `organization` for the HMO,
+`plan` for the HealthPlans and Pricing, `cart` for the transaction.
+
+After that, I installed rest_framework, and started creating serializers and views for the endpoints.
+I am still using db.sqlite3 that time, I realized it won't work if I deploy it. So I installed django-environ, setup 
+the DATABASE_URL=psql:// on environment, spawned db on my vpc. Then, I installed zappa, a python serverless rest_framework,
+then deploy my django app to AWS - Lambda.
+
+I used serverless for the backend because it is easier to deploy.
