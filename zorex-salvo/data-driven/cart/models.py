@@ -14,6 +14,7 @@ class Cart(TimeStampedModel):
                                   editable=False,
                                   unique=True)
     status = StatusField()
+    total_amount = models.IntegerField(help_text='in cents')
 
     def __str__(self):
         return f'{self.identifier}'
