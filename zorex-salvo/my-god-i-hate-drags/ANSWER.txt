@@ -1,0 +1,10 @@
+2. Maria Health's way of loading pages is better than most of traditional web applications, first on UX,
+    users will not notice the part where you are loading the data, thus, a seamless web page experience.
+
+    - How is it worse? 
+        When searching, there will be unnecessary resource usage (for pre-requesting data) if the user already got
+        what he/she is looking for on the first set of results that are displayed. 
+
+    - When should each be used over the other?
+        If browsing the full-list with no search query or filters; preload the data.
+        Else if, browsing with search query and filters; do not preload the data.
