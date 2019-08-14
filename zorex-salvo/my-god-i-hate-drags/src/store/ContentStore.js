@@ -41,25 +41,19 @@ class ContentStore {
 
   buildParams() {
     const params = {
-      search: '_exists_:openfda',
+      search: '(_exists_:openfda)',
       limit: this.limit,
       skip: this.skip
     };
 
     if (this.search.query) {
-      params['search'] += ` AND (opendfda.brand_name:${
+      params['search'] += ` AND ((opendfda.brand_name:${
         this.search.query
-      }) (openfda.generic_name:${this.search.query})`;
+      }) (openfda.generic_name:${this.search.query}))`;
     }
 
     if (this.filter.route) {
-      if (this.search.query) {
-        params['search'] += ` AND ${params.search} AND (openfda.route:${
-          this.filter.route
-        })`;
-      } else {
-        params['search'] += ` AND (openfda.route:${this.filter.route})`;
-      }
+      params['search'] += ` AND (openfda.route:${this.filter.route})`;
     }
     return params;
   }
