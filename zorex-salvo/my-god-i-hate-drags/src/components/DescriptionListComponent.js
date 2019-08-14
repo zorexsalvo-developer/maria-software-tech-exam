@@ -7,7 +7,7 @@ export default class DescriptionListComponent extends Component {
   render() {
     const { record } = this.props;
     return (
-      <Descriptions title="Drugs Information" layout="vertical" bordered>
+      <Descriptions title="Drug Information" layout="vertical" bordered>
         {record.indications_and_usage ? (
           <Descriptions.Item label="Indications And Usage">
             {record.indications_and_usage}
