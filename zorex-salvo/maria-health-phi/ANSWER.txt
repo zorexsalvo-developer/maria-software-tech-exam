@@ -1,0 +1,5 @@
+The scripts that I wrote are not complex, all of it have for
+loops, counters, and next, prev, current variable holders.
+
+I have a problem though, I still don't get to print "Maria Health"
+even on higher counts.
