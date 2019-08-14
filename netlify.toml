@@ -1,4 +1,3 @@
 [build]
-    base = "Zorex\ Salvo/My\ God\!\ I\ Hate\ Drags/"
-    publish = "Zorex\ Salvo/My\ God\!\ I\ Hate\ Drags/build/"
-    
+    base = "zorex-salvo/my-god-i-hate-drags"
+    base = "zorex-salvo/my-god-i-hate-drags/build"
