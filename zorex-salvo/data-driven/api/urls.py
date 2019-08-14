@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import ListPlanAPIView, CreateCartAPIView, RetrieveCartAPIView, AddToCartAPIView, RemoveItemFromCartAPIView
+from .views import ListPlanAPIView, CreateCartAPIView, RetrieveCartAPIView, AddToCartAPIView, RemoveItemFromCartAPIView, PayCartAPIView
 
 urlpatterns = [
     path('plans/', ListPlanAPIView.as_view(), name='list_plan'),
@@ -13,4 +13,5 @@ urlpatterns = [
     path('carts/<identifier>/',
          RetrieveCartAPIView.as_view(),
          name='retrieve_cart'),
+    path('carts/<identifier>/pay/', PayCartAPIView.as_view(), name='pay_cart'),
 ]
