@@ -64,8 +64,15 @@ class CreateCartSerializer(serializers.ModelSerializer):
         model = Cart
         fields = (
             'identifier',
+            'total_amount',
             'cart_items',
         )
+        read_only_fields = ('total_amount', )
+
+    def to_representation(self, obj):
+        data = super(CreateCartSerializer, self).to_representation(obj)
+        data['total_amount'] = data['total_amount'] / 100
+        return data
 
     def create(self, validated_data):
         items = validated_data.pop('cart_items', [])
@@ -80,8 +87,12 @@ class CreateCartSerializer(serializers.ModelSerializer):
                 raise serializers.ValidationError(
                     f"Payment term '{item['payment_term']}' is not available for {plan.name}"
                 )
+
             item['cart_id'] = cart.id
             item['plan_id'] = plan.id
             Item.objects.create(**item)
+            cart.total_amount = cart.total_amount + (terms.first().amount *
+                                                     item['quantity'])
+            cart.save()
 
         return cart
