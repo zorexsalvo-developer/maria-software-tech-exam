@@ -6,7 +6,10 @@ from organization.models import Organization
 
 
 class Plan(TimeStampedModel):
-    identifier = models.UUIDField(default=uuid.uuid4, editable=False)
+    identifier = models.CharField(max_length=255,
+                                  default=uuid.uuid4,
+                                  editable=False,
+                                  unique=True)
     name = models.CharField(max_length=255)
     hmo = models.ForeignKey(Organization,
                             on_delete=models.CASCADE,
@@ -23,7 +26,10 @@ class Term(TimeStampedModel):
     plan = models.ForeignKey('Plan',
                              on_delete=models.CASCADE,
                              related_name='payment_terms')
-    identifier = models.UUIDField(default=uuid.uuid4, editable=False)
+    identifier = models.CharField(max_length=255,
+                                  default=uuid.uuid4,
+                                  editable=False,
+                                  unique=True)
     term = models.CharField(max_length=255, choices=PAYMENT_TERMS)
     amount = models.IntegerField(help_text="in cents")
 

@@ -9,7 +9,10 @@ from plan.models import Plan, Term
 class Cart(TimeStampedModel):
     STATUS = Choices('pending', 'paid')
 
-    identifier = models.UUIDField(default=uuid.uuid4, editable=False)
+    identifier = models.CharField(max_length=255,
+                                  default=uuid.uuid4,
+                                  editable=False,
+                                  unique=True)
     status = StatusField()
 
     def __str__(self):
@@ -17,7 +20,10 @@ class Cart(TimeStampedModel):
 
 
 class Item(TimeStampedModel):
-    identifier = models.UUIDField(default=uuid.uuid4, editable=False)
+    identifier = models.CharField(max_length=255,
+                                  default=uuid.uuid4,
+                                  editable=False,
+                                  unique=True)
     cart = models.ForeignKey(Cart,
                              on_delete=models.CASCADE,
                              related_name='cart_items')
