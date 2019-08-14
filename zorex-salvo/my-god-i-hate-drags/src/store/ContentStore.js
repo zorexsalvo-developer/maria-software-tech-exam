@@ -101,6 +101,7 @@ class ContentStore {
     try {
       const webservice = new ContentWebservice();
       const response = await webservice.getData(this.buildParams());
+      this.setTotal(response.data.meta.results.total);
       this.pushDataToResults(response.data.results);
     } catch (e) {
       if (e.response) {
