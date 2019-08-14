@@ -9,6 +9,7 @@ name = "pypi"
 django = "*"
 django-model-utils = "*"
 yapf = "*"
+djangorestframework = "*"
 
 [requires]
 python_version = "3.6"
