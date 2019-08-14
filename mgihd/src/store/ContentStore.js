@@ -118,7 +118,7 @@ class ContentStore {
       this.pushDataToResults(response.data.results);
     } catch (e) {
       if (e.response) {
-        if (this.results.length < this.total) {
+        if (this.results.length >= this.total) {
           message.info('No more products to display');
         } else {
           message.error(e.response.data.error.message);
