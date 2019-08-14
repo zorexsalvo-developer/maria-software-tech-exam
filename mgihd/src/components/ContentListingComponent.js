@@ -29,7 +29,7 @@ class ContenListingComponent extends Component {
           <Table
             bordered
             initialLoad={false}
-            locale={{ emptyText: 'No more products to display.' }}
+            locale={{ emptyText: 'No products to display.' }}
             columns={this.props.store.ui.columns}
             rowKey={record => record.id}
             dataSource={this.props.store.results}
