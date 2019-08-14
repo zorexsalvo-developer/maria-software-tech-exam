@@ -177,6 +177,13 @@
 
 ```
 
+###### Error Response
+```javascript
+{
+   "message":"Cart not found. Invalid cart identifier or cart is already paid."
+}
+```
+
 
 
 ---
