@@ -39,6 +39,31 @@ class ContentStore {
     });
   }
 
+  buildParams() {
+    const params = {
+      search: '_exists_:openfda',
+      limit: this.limit,
+      skip: this.skip
+    };
+
+    if (this.search.query) {
+      params['search'] += `(opendfda.brand_name:${
+        this.search.query
+      }) (openfda.generic_name:${this.search.query})`;
+    }
+
+    if (this.filter.route) {
+      if (this.search.query) {
+        params['search'] += `${params.search} AND (openfda.route:${
+          this.filter.route
+        })`;
+      } else {
+        params['search'] += `(openfda.route:${this.filter.route})`;
+      }
+    }
+    return params;
+  }
+
   resetDataTable() {
     this.setTotal(-1);
     this.setSkip(0);
@@ -49,28 +74,8 @@ class ContentStore {
     this.resetDataTable();
     this.ui.setLoading(true);
     try {
-      const params = {
-        limit: this.limit,
-        skip: this.skip
-      };
-
-      if (this.search.query) {
-        params['search'] = `(opendfda.brand_name:${
-          this.search.query
-        }) (openfda.generic_name:${this.search.query})`;
-      }
-
-      if (this.filter.route) {
-        if (this.search.query) {
-          params['search'] = `${params.search} AND (openfda.route:${
-            this.filter.route
-          })`;
-        } else {
-          params['search'] = `(openfda.route:${this.filter.route})`;
-        }
-      }
       const webservice = new ContentWebservice();
-      const response = await webservice.getData(params);
+      const response = await webservice.getData(this.buildParams());
 
       this.setTotal(response.data.meta.results.total);
       this.setMeta(response.data.meta);
@@ -94,27 +99,8 @@ class ContentStore {
     this.setSkip(this.skip + this.limit);
 
     try {
-      const params = {
-        limit: this.limit,
-        skip: this.skip
-      };
-
-      if (this.search.query) {
-        params['search'] = `(opendfda.brand_name:${
-          this.search.query
-        }) (openfda.generic_name:${this.search.query})`;
-      }
-      if (this.filter.route) {
-        if (this.search.query) {
-          params['search'] = `${params.search} AND (openfda.route:${
-            this.filter.route
-          })`;
-        } else {
-          params['search'] = `(openfda.route:${this.filter.route})`;
-        }
-      }
       const webservice = new ContentWebservice();
-      const response = await webservice.getData(params);
+      const response = await webservice.getData(this.buildParams());
       this.pushDataToResults(response.data.results);
     } catch (e) {
       if (e.response) {
