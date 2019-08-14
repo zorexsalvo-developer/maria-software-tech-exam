@@ -1,0 +1,18 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[dev-packages]
+
+[packages]
+django = "*"
+django-model-utils = "*"
+yapf = "*"
+djangorestframework = "*"
+django-environ = "*"
+"psycopg2-binary" = "*"
+zappa = "*"
+
+[requires]
+python_version = "3.6"
