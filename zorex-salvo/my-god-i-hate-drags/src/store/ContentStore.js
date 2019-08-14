@@ -101,6 +101,13 @@ class ContentStore {
       const response = await webservice.getData(this.buildParams());
       this.setTotal(response.data.meta.results.total);
       this.pushDataToResults(response.data.results);
+
+      if (
+        this.results.length + response.data.results.length >=
+        response.data.meta.results.total
+      ) {
+        message.info('No more products to display');
+      }
     } catch (e) {
       if (e.response) {
         if (this.results.length >= this.total) {
