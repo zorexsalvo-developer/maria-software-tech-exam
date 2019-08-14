@@ -3,11 +3,13 @@ import { notification, message } from 'antd';
 import ContentUiStore from './ContentUiStore';
 import ContentWebservice from './../webservice/ContentWebservice';
 import SearchStore from './SearchStore';
+import FilterStore from './FilterStore';
 
 class ContentStore {
   constructor() {
     this.ui = new ContentUiStore();
     this.search = new SearchStore();
+    this.filter = new FilterStore();
     this.results = [];
     this.meta = {};
 
@@ -57,6 +59,16 @@ class ContentStore {
           this.search.query
         }) (openfda.generic_name:${this.search.query})`;
       }
+
+      if (this.filter.route) {
+        if (this.search.query) {
+          params['search'] = `${params.search} AND (openfda.route:${
+            this.filter.route
+          })`;
+        } else {
+          params['search'] = `(openfda.route:${this.filter.route})`;
+        }
+      }
       const webservice = new ContentWebservice();
       const response = await webservice.getData(params);
 
@@ -91,6 +103,15 @@ class ContentStore {
         params['search'] = `(opendfda.brand_name:${
           this.search.query
         }) (openfda.generic_name:${this.search.query})`;
+      }
+      if (this.filter.route) {
+        if (this.search.query) {
+          params['search'] = `${params.search} AND (openfda.route:${
+            this.filter.route
+          })`;
+        } else {
+          params['search'] = `(openfda.route:${this.filter.route})`;
+        }
       }
       const webservice = new ContentWebservice();
       const response = await webservice.getData(params);

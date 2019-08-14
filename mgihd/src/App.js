@@ -16,7 +16,7 @@ class App extends Component {
           <Col md={{ span: 16, offset: 4 }}>
             <Row gutter={16}>
               <Col md={{ span: 12 }}>
-                <FilterComponent />
+                <FilterComponent store={this.props.store.content} />
               </Col>
               <Col md={{ span: 12 }}>
                 <SearchComponent store={this.props.store.content} />
