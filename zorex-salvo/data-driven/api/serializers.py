@@ -74,6 +74,12 @@ class CreateCartSerializer(serializers.ModelSerializer):
         for item in items:
             cart = Cart.objects.get(identifier=cart)
             plan = Plan.objects.get(identifier=item['plan'].identifier)
+            terms = Term.objects.filter(plan=plan, term=item['payment_term'])
+
+            if not terms:
+                raise serializers.ValidationError(
+                    f"Payment term '{item['payment_term']}' is not available for {plan.name}"
+                )
             item['cart_id'] = cart.id
             item['plan_id'] = plan.id
             Item.objects.create(**item)
