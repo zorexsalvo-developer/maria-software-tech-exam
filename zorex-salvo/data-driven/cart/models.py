@@ -16,7 +16,7 @@ class Cart(TimeStampedModel):
     status = StatusField()
 
     def __str__(self):
-        return self.identifier
+        return f'{self.identifier}'
 
 
 class Item(TimeStampedModel):

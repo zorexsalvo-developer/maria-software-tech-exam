@@ -56,14 +56,13 @@ class CreateCartSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         items = validated_data.pop('cart_items', [])
-        cart = Cart(**validated_data)
-        cart.save()
+        cart = Cart.objects.create(**validated_data)
 
         for item in items:
-            item['card'] = cart.id
-            item['plan'] = item['plan'].identifier
-            serializer = ItemSerializer(data=item)
-            serializer.is_valid(raise_exception=True)
-            # serializer.save()
+            cart = Cart.objects.get(identifier=cart)
+            plan = Plan.objects.get(identifier=item['plan'].identifier)
+            item['cart_id'] = cart.id
+            item['plan_id'] = plan.id
+            Item.objects.create(**item)
 
         return cart
