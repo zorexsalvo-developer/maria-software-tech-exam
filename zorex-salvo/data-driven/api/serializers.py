@@ -62,12 +62,8 @@ class CreateCartSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Cart
-        fields = (
-            'identifier',
-            'total_amount',
-            'cart_items',
-        )
-        read_only_fields = ('total_amount', )
+        fields = ('identifier', 'total_amount', 'cart_items', 'status')
+        read_only_fields = ('total_amount', 'status')
 
     def to_representation(self, obj):
         data = super(CreateCartSerializer, self).to_representation(obj)
