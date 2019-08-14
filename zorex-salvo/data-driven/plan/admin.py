@@ -8,6 +8,7 @@ class TermsInline(admin.TabularInline):
 
 
 class PlanModelAdmin(admin.ModelAdmin):
+    list_display = ('identifier', 'name', 'created', 'modified')
     inlines = [TermsInline]
 
 

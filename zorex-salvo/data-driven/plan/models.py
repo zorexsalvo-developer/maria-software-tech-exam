@@ -12,6 +12,9 @@ class Plan(TimeStampedModel):
                             on_delete=models.CASCADE,
                             related_name='health_plans')
 
+    def __str__(self):
+        return self.name
+
 
 class Term(TimeStampedModel):
     PAYMENT_TERMS = Choices(('monthly', 'Monthly'), ('quarterly', 'Quarterly'),
@@ -23,3 +26,6 @@ class Term(TimeStampedModel):
     identifier = models.UUIDField(default=uuid.uuid4, editable=False)
     term = models.CharField(max_length=255, choices=PAYMENT_TERMS)
     amount = models.IntegerField(help_text="in cents")
+
+    def __str__(self):
+        return self.term

@@ -12,11 +12,20 @@ class Cart(TimeStampedModel):
     identifier = models.UUIDField(default=uuid.uuid4, editable=False)
     status = StatusField()
 
+    def __str__(self):
+        return self.identifier
+
 
 class Item(TimeStampedModel):
     identifier = models.UUIDField(default=uuid.uuid4, editable=False)
+    cart = models.ForeignKey(Cart,
+                             on_delete=models.CASCADE,
+                             related_name='cart_items')
     plan = models.ForeignKey(Plan,
                              on_delete=models.CASCADE,
                              related_name='plan_particurals')
     payment_term = models.CharField(max_length=255, choices=Term.PAYMENT_TERMS)
     quantity = models.IntegerField()
+
+    def __str__(self):
+        return self.identifier
