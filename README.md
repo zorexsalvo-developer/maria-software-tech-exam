@@ -14,4 +14,4 @@
  | **Tech:**        | [React](https://reactjs.org/) |
  | **CI/CD:** | [Netlify](https://www.netlify.com/)|
  | **Directory:**| `zorex-salvo/my-god-i-hate-drags/`|
- |**How-To:**| Build instruction on `PROJECT_DIRECTORY>/README.md`|
+ |**How-To:**| Build instruction on `PROJECT_DIRECTORY/README.md`|
