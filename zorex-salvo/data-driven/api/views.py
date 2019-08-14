@@ -64,10 +64,15 @@ class AddToCartAPIView(APIView):
 class RemoveItemFromCartAPIView(APIView):
     def delete(self, request, cart_identifier, item_identifier):
         try:
-            cart = Cart.objects.get(identifier=cart_identifier)
+            cart = Cart.objects.get(identifier=cart_identifier,
+                                    status=Cart.STATUS.pending)
         except Cart.DoesNotExist:
-            return Response({'message': 'Cart not found'},
-                            status=status.HTTP_404_NOT_FOUND)
+            return Response(
+                {
+                    'message':
+                    'Cart not found. Invalid cart identifier or cart is already paid.'
+                },
+                status=status.HTTP_404_NOT_FOUND)
 
         try:
             item = Item.objects.get(cart=cart, identifier=item_identifier)
