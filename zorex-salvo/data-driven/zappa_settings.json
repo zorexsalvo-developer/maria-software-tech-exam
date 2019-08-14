@@ -1,0 +1,10 @@
+{
+  "dev": {
+    "aws_region": "ap-southeast-1",
+    "django_settings": "healthshop.settings",
+    "profile_name": "default",
+    "project_name": "api-maria",
+    "runtime": "python3.6",
+    "s3_bucket": "maria-data-driven-zappa"
+  }
+}

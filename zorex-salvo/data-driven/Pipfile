@@ -12,6 +12,7 @@ yapf = "*"
 djangorestframework = "*"
 django-environ = "*"
 "psycopg2-binary" = "*"
+zappa = "*"
 
 [requires]
 python_version = "3.6"
