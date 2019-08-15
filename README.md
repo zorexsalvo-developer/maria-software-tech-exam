@@ -86,7 +86,7 @@
 
 |Description| URL | Method |
 |-----------|-----|---------|
-|Get Cart| [/v1/carts/{cart_identifier}](https://ptpuimvszi.execute-api.ap-southeast-1.amazonaws.com/dev/v1/carts/cdd06fce-3cdc-4bd3-84a3-2fe5b772d719/)| GET|
+|Get Cart| [/v1/carts/{cart_identifier}/](https://ptpuimvszi.execute-api.ap-southeast-1.amazonaws.com/dev/v1/carts/cdd06fce-3cdc-4bd3-84a3-2fe5b772d719/)| GET|
 
 ###### Response
 ```javascript
