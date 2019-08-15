@@ -63,6 +63,30 @@
 }
 
 ```
+###### Response
+```javascript
+{
+   "identifier":"cdd06fce-3cdc-4bd3-84a3-2fe5b772d719",
+   "total_amount":20.0,
+   "cart_items":[
+      {
+         "identifier":"d8bf0ddd-c875-4312-acac-04ab85c2e073",
+         "plan":{
+            "identifier":"b6206a2a-c19f-4823-ba60-99e2f2c20c8c",
+            "name":"MyMaxicareLite"
+         },
+         "payment_term":"monthly",
+         "quantity":2
+      }
+   ],
+   "status":"pending"
+}
+
+```
+
+|Description| URL | Method |
+|-----------|-----|---------|
+|Get Cart| [/v1/carts/{cart_identifier}](https://ptpuimvszi.execute-api.ap-southeast-1.amazonaws.com/dev/v1/carts/cdd06fce-3cdc-4bd3-84a3-2fe5b772d719/)| GET|
 
 ###### Response
 ```javascript
